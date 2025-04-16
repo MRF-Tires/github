@@ -1,29 +1,138 @@
-what is the diff between git add . and git add * ?
+---
 
-IQ: How to remove the working area files?
-ANS:  git clean -n [ It will display what are the files are to be deleting]
-         git clean -f [Forcefully we are deleting]
-NOTE: only new files will be deleted, Not Modified one.
+```markdown
+# 📘 Git Interview Questions & Real-Time Use Cases – KK FUNDA
 
-IQ: Is it possible to move files from stg area to working area?
- ANS: git reset [all files will be moved.
-          git reset <filename> [only particular file will move]
+This document covers frequently asked Git interview questions with real-time examples and short, clear answers. Suitable for freshers, DevOps engineers, and students preparing for Git interviews or daily project work.
 
-IQ: Due to your bad commit , application is not working, pls revert back the changes How?
+---
 
-git revert <commit id>   —> It will delete all changes in local repo only not in the remote repo.
+## 🔁 Q1: What is the difference between `git add .` and `git add *`?
 
-IQ: How to delete an updated code in remote repo?
-      
-       Already we deleted updated code in my local, Now you can push all files.
-    git push jio-dev master
+| Command | Behavior |
+|--------|----------|
+| `git add .` | Adds all changes (new + modified files) **recursively** from the current directory |
+| `git add *` | Adds all files in the current directory (non-hidden), **but skips** deleted files and subdirectories |
 
-IQ: what is the diff b/w git reset and git revert?
+> ✅ Use `git add .` in most DevOps scenarios — it’s safer and includes everything recursively.
 
-Git reset —> stg to working
-Git revert → from new commit, it will delete new file and updated contents in another file.
+---
 
+## 🧹 Q2: How to remove **untracked files** from the working directory?
 
-What is a .gitignore file?
+```bash
+git clean -n    # Dry run – shows which files will be deleted
+git clean -f    # Forcefully deletes untracked files
+```
 
-If you are not interested to move any file, Then keep that file name inside .gitignore file
+> ⚠️ This **only removes untracked (new) files**, not modified tracked files.
+
+---
+
+## 🔄 Q3: Is it possible to move files from staging area to working directory?
+
+```bash
+git reset              # Moves all staged files back to working area
+git reset <filename>   # Moves only the specified file
+```
+
+> 🔙 Useful when you staged something by mistake and want to edit again.
+
+---
+
+## ⏪ Q4: Due to a bad commit, the application is not working. How to revert it?
+
+```bash
+git revert <commit-id>
+```
+
+- This creates a **new commit** that reverses the changes of the given commit.
+- ✅ **Safe for remote repos** (does not delete history).
+
+---
+
+## 🚫 Q5: How to delete updated code in the **remote repository**?
+
+- First delete or roll back changes in your **local repository**
+- Then push to remote to overwrite:
+
+```bash
+git push origin master
+```
+
+> ✅ This works only if the local branch reflects the correct state.
+
+---
+
+## ⚖️ Q6: Difference between `git reset` and `git revert`?
+
+| Command | Description |
+|---------|-------------|
+| `git reset` | Moves files from **staging → working** area (does not affect history) |
+| `git revert` | Creates a **new commit** that cancels the effect of a bad commit (history-safe) |
+
+---
+
+## 🚫 Q7: What is a `.gitignore` file?
+
+A `.gitignore` file tells Git **which files or patterns to ignore** (not track).
+
+### Example:
+```
+*.log
+.env
+backup/
+```
+
+> 💡 Useful to skip config files, secrets, IDE files, etc.
+
+---
+
+## 🔍 Bonus Real-Time Git Tips
+
+### ✔️ View status of working and staged files:
+```bash
+git status
+```
+
+### ✔️ See commit history:
+```bash
+git log --oneline --graph --all
+```
+
+### ✔️ Undo last local commit but keep changes:
+```bash
+git reset --soft HEAD~1
+```
+
+### ✔️ Remove a file from staging:
+```bash
+git reset HEAD <file>
+```
+
+---
+
+## 💼 Real-Time Use Case
+
+**Scenario**: You committed credentials to GitHub by mistake.
+
+### Solution:
+```bash
+git reset --soft HEAD~1
+vi filename     # remove sensitive info
+git commit -am "remove credentials"
+git push --force
+```
+
+> ⚠️ Use `--force` carefully. Never do this on shared branches unless you know what you're doing.
+
+---
+
+📘 Maintained by: **KK FUNDA – DevOps & Cloud Training**  
+📞 Contact: 9676831734  
+📂 Use for: Classroom teaching, DevOps interviews, and student projects.
+
+```
+
+---
+
