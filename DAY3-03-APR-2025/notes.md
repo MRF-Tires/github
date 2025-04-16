@@ -1,12 +1,5 @@
 ---
 
-```markdown
-# 📘 Git Interview Questions & Real-Time Use Cases – KK FUNDA
-
-This document covers frequently asked Git interview questions with real-time examples and short, clear answers. Suitable for freshers, DevOps engineers, and students preparing for Git interviews or daily project work.
-
----
-
 ## 🔁 Q1: What is the difference between `git add .` and `git add *`?
 
 | Command | Behavior |
