@@ -1,5 +1,3 @@
----
-
 ## 🔁 Q1: What is the difference between `git add .` and `git add *`?
 
 | Command | Behavior |
